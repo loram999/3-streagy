@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRX PREDICTOR · LOGIN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #06080f;
+      --panel: #0b1120;
+      --panel2: #0e1628;
+      --border: #1a2f4a;
+      --gold: #f5c842;
+      --gold2: #c8a020;
+      --cyan: #00d4ff;
+      --red: #ff4455;
+      --green: #00e87a;
+      --purple: #b06cff;
+      --orange: #ff8c42;
+      --dim: #3a5a7a;
+      --text: #b8d0e8;
+      --text2: #6a8aa8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .login-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 50px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(245,200,66,0.06);
+    }
+
+    .login-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--cyan), transparent);
+    }
+
+    .login-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(245,200,66,0.08);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2.5rem;
+      color: var(--gold);
+    }
+
+    .login-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 6px;
+      background: linear-gradient(135deg, var(--gold), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .login-sub {
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      color: var(--dim);
+      margin-bottom: 30px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      color: var(--dim);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .input-group input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.3s;
+      letter-spacing: 4px;
+    }
+
+    .input-group input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px rgba(245,200,66,0.08);
+    }
+
+    .input-group input::placeholder {
+      color: var(--dim);
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+    }
+
+    .login-btn {
+      width: 100%;
+      background: var(--gold);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover {
+      background: var(--gold2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(245,200,66,0.2);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .error-msg {
+      color: var(--red);
+      font-size: 0.7rem;
+      min-height: 24px;
+      margin-top: 12px;
+      letter-spacing: 2px;
+    }
+
+    .login-footer {
+      margin-top: 24px;
+      font-size: 0.55rem;
+      color: var(--dim);
+      letter-spacing: 3px;
+    }
+
+    .login-footer span {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-icon">🔐</div>
+      <div class="login-title">TRX PREDICTOR</div>
+      <div class="login-sub">◆ ENTER ACCESS KEY ◆</div>
+
+      <div class="input-group">
+        <label>Access Key</label>
+        <input type="password" id="keyInput" placeholder="••••••••" maxlength="20" autofocus>
+      </div>
+
+      <button class="login-btn" onclick="login()">UNLOCK →</button>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <div class="login-footer">⚡ <span>REALSTT</span> · PREMIUM ACCESS ⚡</div>
+    </div>
+  </div>
+
+  <script>
+    const VALID_KEY = "REALSTT";
+
+    function login() {
+      const input = document.getElementById('keyInput');
+      const error = document.getElementById('errorMsg');
+      const key = input.value.trim().toUpperCase();
+
+      if (key === VALID_KEY) {
+        error.textContent = '';
+        error.style.color = 'var(--green)';
+        error.textContent = '✓ ACCESS GRANTED!';
+        setTimeout(() => {
+          window.location.href = 'app.html';
+        }, 500);
+      } else {
+        error.textContent = '✗ INVALID KEY. CONTACT ADMIN.';
+        error.style.color = 'var(--red)';
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    document.getElementById('keyInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+
+</body>
+</html>
